@@ -35,4 +35,7 @@ Paths
     http://localhost:8008/ch5-17
     http://localhost:8008/ch6-08            
     http://localhost:8008/dendrogram
+    http://localhost:8008/tree
+    http://localhost:8008/accidents
+    http://localhost:8008/linked-charts
 

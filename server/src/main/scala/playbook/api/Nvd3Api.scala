@@ -74,10 +74,38 @@ class Nvd3Api(implicit sys: ActorSystem) extends Directives {
       }
     }
 
+  val accidentsRoute =
+    path("timeseries_data.csv") {
+      getFromResource("web/accidents/timeseries_data.csv")
+    } ~ path("accidents") {
+      getFromResource("web/accidents/fatal-accidents.html")
+    }
+
+  val bChartRoute =
+    path("bchart") {
+       getFromResource("web/bump-chart/bump-chart.html")
+     } ~ path("ugo.txt") {
+       getFromResource("web/bump-chart/ugo.txt")
+     }
+
+  val linkedChart =
+    path("linked-charts") {
+      getFromResource("web/linked-charts/linked-charts.html")
+    } ~ path("div9.csv") {
+      getFromResource("web/linked-charts/div9.csv")
+    }
+
+  val treeR =
+    path("tree") {
+      getFromResource("web/tree.html")
+    } ~ path("MRD.csv") {
+      getFromResource("web/MRD.csv") //MRD.csv
+    }
+
   val route = extractMaterializer { implicit mat =>
     extractExecutionContext { implicit ec =>
       extractLog { log =>
-        assetsRoute ~ playRoute ~ scalaJsRoute ~ bookRoutes
+        assetsRoute ~ playRoute ~ scalaJsRoute ~ bookRoutes ~ accidentsRoute ~ bChartRoute ~ linkedChart ~ treeR
       }
     }
   }

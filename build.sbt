@@ -85,6 +85,11 @@ def cpCss() = (baseDirectory) map { dir =>
 
     Process(s"cp ${dir}/src/main/twirl/playbook/nv.d3.css ${dir}/target/web/web-modules/main/webjars/lib/bootstrap/css/").!
     Process(s"cp ${dir}/src/main/resources/tree.css ${dir}/target/web/web-modules/main/webjars/lib/bootstrap/css/").!
+
+
+    Process(s"cp ${dir}/src/main/resources/web/linked-charts/area1.js ${dir}/target/web/web-modules/main/webjars/lib/bootstrap/js").!
+    Process(s"cp ${dir}/src/main/resources/web/linked-charts/area2.js ${dir}/target/web/web-modules/main/webjars/lib/bootstrap/js").!
+
   }
 
   println("Coping resources ...")
