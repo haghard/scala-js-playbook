@@ -6,19 +6,38 @@
 $ sbt
 > ~re-start
 
-Scalajs-react
-  
-  https://japgolly.github.io/scalajs-react/#examples/websockets
-  https://japgolly.github.io/scalajs-react/#examples/product-table
- 
-ScalaJs
 
+Useful Links
+
+    https://medium.com/@ianjuma/deploying-scala-on-docker-e8d98aa39bcf#.oonxy2zi8
+    https://www.digitalocean.com/community/tutorials/how-to-provision-and-manage-remote-docker-hosts-with-docker-machine-on-ubuntu-16-04
+
+
+    https://www.javacodegeeks.com/2016/11/developing-modern-applications-scala-web-apis-akka-http.html
+    http://www.jasondavies.com/wordtree/
+    http://chandu0101.github.io/sjrc/
+    https://www.jasondavies.com/wordtree/
+    https://github.com/d3/d3/wiki/Gallery
+    http://bl.ocks.org/mbostock/4063550
+    https://ochrons.github.io/scalajs-spa-tutorial/en/routing.html
+  
+    https://getbootstrap.com/components/#navbar
+    http://foat.me/articles/reactive-fun-with-scala-js/
+    http://www.baeldung.com/geolocation-by-ip-with-maxmind
+
+
+    https://github.com/nvd3-community/nvd3/tree/gh-pages
+    https://github.com/nvd3-community/nvd3/blob/gh-pages/examples/forceDirected.html
+
+  
+    https://japgolly.github.io/scalajs-react/#examples/websockets
+    https://japgolly.github.io/scalajs-react/#examples/product-table
+ 
     http://www.scala-js.org/tutorial/basic/
     http://www.scala-js.org/tutorial/basic/
     https://github.com/japgolly/scalajs-react/blob/master/doc/USAGE.md
     https://github.com/chandu0101/scalajs-react-components
-    https://japgolly.github.io/scalajs-react/#examples/todo        
-
+    https://japgolly.github.io/scalajs-react/#examples/todo
 
 Paths
 
