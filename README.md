@@ -38,6 +38,12 @@ Useful Links
     https://github.com/japgolly/scalajs-react/blob/master/doc/USAGE.md
     https://github.com/chandu0101/scalajs-react-components
     https://japgolly.github.io/scalajs-react/#examples/todo
+    
+
+    http://scalapro.net/javascript-object-instead-of-case-classes/
+    http://scalapro.net/scala-js-and-unidirectional-data-flow/
+    http://enear.github.io/2017/03/07/scalajs-react-part1/
+    http://scalapro.net/scala-js-and-unidirectional-data-flow/
 
 Paths
 
