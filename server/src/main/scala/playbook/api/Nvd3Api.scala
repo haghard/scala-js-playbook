@@ -44,6 +44,11 @@ class Nvd3Api(implicit sys: ActorSystem) extends Directives {
       getFromResource("web/animals-json.json")
     }
 
+  /*
+    ~ path("cnt") {
+      complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`, ByteString(CounterScript().render))))
+    }*/
+
   private val bookRoutes =
     path("tweets2.json") {
       getFromResource("web/tweets2.json")

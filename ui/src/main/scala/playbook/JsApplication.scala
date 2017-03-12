@@ -12,7 +12,7 @@ object JsApplication extends JSApp {
   override def main(): Unit = {
     val content = dom.document.getElementById("content")
     content.removeChild(content.firstChild)
-    ReactJs(content)
+    //ReactJs(content)
 
     /*
       import scalatags.JsDom.all._
