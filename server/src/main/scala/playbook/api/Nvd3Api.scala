@@ -18,6 +18,10 @@ class Nvd3Api(implicit sys: ActorSystem) extends Directives {
     }
   }
 
+
+  /*~ path("histogram") {
+        complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`, ByteString(HistogramScript("histogram").render))))
+      }*/
   private val scalaJsRoute =
     path("english") {
       complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`,
@@ -34,9 +38,6 @@ class Nvd3Api(implicit sys: ActorSystem) extends Directives {
     } ~ path("bar-graph") {
       complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`,
         ByteString(BarGraphScript("bar-graph").render))))
-    } ~ path("histogram") {
-      complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`,
-        ByteString(HistogramScript("histogram").render))))
     } ~ path("animals") {
       complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`,
         ByteString(AnimalsScript().render))))

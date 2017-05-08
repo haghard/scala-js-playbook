@@ -1,12 +1,14 @@
 import sbt._
 
-val scalaV = "2.11.8"
-val akkaVersion = "2.4.17"
+val scalaV = "2.12.2"
+val akkaVersion = "2.5.1"
 val version = "0.1"
 
 name := "scala-js-playbook"
 
 resolvers += "Typesafe repository" at "https://repo.typesafe.com/typesafe/releases/"
+resolvers += Resolver.bintrayRepo("stanch", "maven")
+resolvers += "Local Ivy2 Repository" at "file://Users/haghard/.ivy2/local/"
 
 updateOptions in Global := updateOptions.in(Global).value.withCachedResolution(true)
 
@@ -30,8 +32,9 @@ lazy val server = (project in file("server")).settings(
   libraryDependencies ++= Seq(
     "com.typesafe.akka" %% "akka-actor" % akkaVersion,
     "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
+    "com.typesafe.akka" %% "akka-stream" % akkaVersion,
 
-    "com.typesafe.akka" %% "akka-http"  % "10.0.4",
+    "com.typesafe.akka" %% "akka-http"  % "10.0.6",
 
     "ch.qos.logback"  %   "logback-classic" % "1.1.2",
 
@@ -39,7 +42,8 @@ lazy val server = (project in file("server")).settings(
 
     "com.lihaoyi"     %%  "scalatags"       % "0.6.2",
     "org.webjars"     %   "bootstrap"       % "3.3.6",
-    "org.scalatest"    %% "scalatest"       % "3.0.1" % "test"
+    "org.stanch"      %%  "reftree"         % "1.0.0",
+    "org.scalatest"   %%  "scalatest"       % "3.0.1"   % "test"
   ),
 
   WebKeys.packagePrefix in Assets := "public/",
@@ -108,25 +112,26 @@ lazy val ui = (project in file("ui")).settings(
   persistLauncher in Test := false,
 
   libraryDependencies ++= Seq(
-    "org.singlespaced" %%% "scalajs-d3" % "0.3.3", //the version for scala 2.12 is 0.3.4
+    "org.singlespaced" %%% "scalajs-d3" % "0.3.4", //the version for scala 2.12 is 0.3.4
     "com.github.japgolly.scalajs-react" %%% "core"    % "0.11.3",
-    "com.github.japgolly.scalajs-react" %%% "extra"   % "0.11.3",
-    "com.github.yoeluk"                 %%% "raphael-scala-js" % "0.2-SNAPSHOT"),
+    "com.github.japgolly.scalajs-react" %%% "extra"   % "0.11.3"
+    //"com.github.yoeluk"                 %%% "raphael-scala-js" % "0.2-SNAPSHOT"
+  ),
 
   jsDependencies ++= Seq(
     "org.webjars" % "jquery" % "2.1.3" / "2.1.3/jquery.js",
-    "org.webjars.bower" % "react" % "15.3.2"
+    "org.webjars.bower" % "react" % "15.4.2"
         /        "react-with-addons.js"
         minified "react-with-addons.min.js"
         commonJSName "React",
 
-      "org.webjars.bower" % "react" % "15.3.2"
+      "org.webjars.bower" % "react" % "15.4.2"
         /         "react-dom.js"
         minified  "react-dom.min.js"
         dependsOn "react-with-addons.js"
         commonJSName "ReactDOM",
 
-      "org.webjars.bower" % "react" % "15.3.2"
+      "org.webjars.bower" % "react" % "15.4.2"
         /         "react-dom-server.js"
         minified  "react-dom-server.min.js"
         dependsOn "react-dom.js"
@@ -137,7 +142,7 @@ lazy val ui = (project in file("ui")).settings(
 lazy val shared = (crossProject.crossType(CrossType.Pure) in file("shared")).
   settings(
     scalaVersion := scalaV,
-    libraryDependencies ++= Seq("com.lihaoyi" %%% "upickle" % "0.4.3")
+    libraryDependencies ++= Seq("com.lihaoyi" %%% "upickle" % "0.4.4")
   ).jsConfigure(_ enablePlugins ScalaJSWeb)
 
 lazy val sharedJvm = shared.jvm

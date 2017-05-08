@@ -1,3 +1,5 @@
+/*
+
 package playbook.d3
 
 import org.scalajs.dom.html
@@ -62,3 +64,4 @@ object Sketcher {
     draw(scene)
   }
 }
+*/
