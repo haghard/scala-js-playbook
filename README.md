@@ -53,7 +53,7 @@ Paths
     http://localhost:8008/speech
     http://localhost:8008/cluster
     http://localhost:8008/bar-graph
-    http://localhost:8008/histogram
+    http://localhost:8008/histogram --removed
     http://localhost:8008/animals    
     http://localhost:8008/ch5-12
     http://localhost:8008/ch5-16

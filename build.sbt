@@ -40,7 +40,7 @@ lazy val server = (project in file("server")).settings(
 
     "com.vmunier"     %%  "scalajs-scripts" % "1.1.0", //Twirl templates to link Scala.js output scripts into a HTML page.
 
-    "com.lihaoyi"     %%  "scalatags"       % "0.6.2",
+    "com.lihaoyi"     %%  "scalatags"       % "0.6.5",
     "org.webjars"     %   "bootstrap"       % "3.3.6",
     "org.stanch"      %%  "reftree"         % "1.0.0",
     "org.scalatest"   %%  "scalatest"       % "3.0.1"   % "test"
