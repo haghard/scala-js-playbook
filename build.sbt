@@ -1,7 +1,16 @@
+import com.typesafe.sbt.packager.archetypes.JavaAppPackaging
+import com.typesafe.sbt.web.Import.WebKeys
+import com.typesafe.sbt.web.SbtWeb
+import org.scalajs.sbtplugin.ScalaJSPlugin
+import org.scalajs.sbtplugin.cross.CrossType
+import play.twirl.sbt.SbtTwirl
 import sbt._
+import webscalajs.ScalaJSWeb
+import sbt.Keys._
+import sbt.Project.projectToRef
 
-val scalaV = "2.12.2"
-val akkaVersion = "2.5.1"
+val scalaV = "2.12.3"
+val akkaVersion = "2.5.3"
 val version = "0.1"
 
 name := "scala-js-playbook"
@@ -13,16 +22,15 @@ resolvers += "Local Ivy2 Repository" at "file://Users/haghard/.ivy2/local/"
 updateOptions in Global := updateOptions.in(Global).value.withCachedResolution(true)
 
 lazy val server = (project in file("server")).settings(
-  resolvers ++= Seq(
-    "Typesafe repository" at "https://repo.typesafe.com/typesafe/releases/"
-  ),
+  resolvers ++= Seq("Typesafe repository" at "https://repo.typesafe.com/typesafe/releases/"),
 
-  scalacOptions in(Compile, console) := Seq("-feature", "-Xfatal-warnings", "-deprecation", "-unchecked"),
+  scalacOptions in(Compile, console) := Seq("-feature", "-Xfatal-warnings", "-deprecation", "-unchecked", "-P:scalajs:suppressExportDeprecations"),
   scalaVersion := scalaV,
   scalaJSProjects := Seq(ui),
   pipelineStages in Assets := Seq(scalaJSPipeline),
+
   // triggers scalaJSPipeline when using compile or continuous compilation
-  compile in Compile <<= (compile in Compile).dependsOn(scalaJSPipeline, cpCss),
+  compile in Compile := ((compile in Compile).dependsOn(scalaJSPipeline, cpCss)).value,
 
   name := "server",
 
@@ -34,7 +42,7 @@ lazy val server = (project in file("server")).settings(
     "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
     "com.typesafe.akka" %% "akka-stream" % akkaVersion,
 
-    "com.typesafe.akka" %% "akka-http"  % "10.0.6",
+    "com.typesafe.akka" %% "akka-http"  % "10.0.9",
 
     "ch.qos.logback"  %   "logback-classic" % "1.1.2",
 
@@ -42,7 +50,7 @@ lazy val server = (project in file("server")).settings(
 
     "com.lihaoyi"     %%  "scalatags"       % "0.6.5",
     "org.webjars"     %   "bootstrap"       % "3.3.6",
-    "org.stanch"      %%  "reftree"         % "1.0.0",
+    //"org.stanch"      %%  "reftree"         % "1.0.0",
     "org.scalatest"   %%  "scalatest"       % "3.0.1"   % "test"
   ),
 
@@ -59,8 +67,6 @@ lazy val server = (project in file("server")).settings(
     case PathList(xs@_*) if xs.last == "io.netty.versions.properties" => MergeStrategy.rename
     case other => (assemblyMergeStrategy in assembly).value(other)
   }
-
-
 ).enablePlugins(SbtWeb, SbtTwirl, JavaAppPackaging).dependsOn(sharedJvm)
 
 //for debugging
@@ -90,10 +96,8 @@ def cpCss() = (baseDirectory) map { dir =>
     Process(s"cp ${dir}/src/main/twirl/playbook/nv.d3.css ${dir}/target/web/web-modules/main/webjars/lib/bootstrap/css/").!
     Process(s"cp ${dir}/src/main/resources/tree.css ${dir}/target/web/web-modules/main/webjars/lib/bootstrap/css/").!
 
-
     Process(s"cp ${dir}/src/main/resources/web/linked-charts/area1.js ${dir}/target/web/web-modules/main/webjars/lib/bootstrap/js").!
     Process(s"cp ${dir}/src/main/resources/web/linked-charts/area2.js ${dir}/target/web/web-modules/main/webjars/lib/bootstrap/js").!
-
   }
 
   println("Coping resources ...")
@@ -108,30 +112,32 @@ lazy val ui = (project in file("ui")).settings(
 
   resolvers += "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
   scalaVersion := scalaV,
-  persistLauncher := true,
-  persistLauncher in Test := false,
+  scalaJSUseMainModuleInitializer := true,
+  scalaJSUseMainModuleInitializer in Test := false,
+  //persistLauncher := true,
+  //persistLauncher in Test := false,
 
   libraryDependencies ++= Seq(
     "org.singlespaced" %%% "scalajs-d3" % "0.3.4", //the version for scala 2.12 is 0.3.4
-    "com.github.japgolly.scalajs-react" %%% "core"    % "0.11.3",
-    "com.github.japgolly.scalajs-react" %%% "extra"   % "0.11.3"
-    //"com.github.yoeluk"                 %%% "raphael-scala-js" % "0.2-SNAPSHOT"
+    "com.github.japgolly.scalajs-react" %%% "core"    % "1.1.0",
+    "com.github.japgolly.scalajs-react" %%% "extra"   % "1.1.0"
+    //"com.github.yoeluk"               %%% "raphael-scala-js" % "0.2-SNAPSHOT"
   ),
 
   jsDependencies ++= Seq(
     "org.webjars" % "jquery" % "2.1.3" / "2.1.3/jquery.js",
-    "org.webjars.bower" % "react" % "15.4.2"
+    "org.webjars.bower" % "react" % "15.6.1"
         /        "react-with-addons.js"
         minified "react-with-addons.min.js"
         commonJSName "React",
 
-      "org.webjars.bower" % "react" % "15.4.2"
+      "org.webjars.bower" % "react" % "15.6.1"
         /         "react-dom.js"
         minified  "react-dom.min.js"
         dependsOn "react-with-addons.js"
         commonJSName "ReactDOM",
 
-      "org.webjars.bower" % "react" % "15.4.2"
+      "org.webjars.bower" % "react" % "15.6.1"
         /         "react-dom-server.js"
         minified  "react-dom-server.min.js"
         dependsOn "react-dom.js"

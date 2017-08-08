@@ -9,7 +9,7 @@ import scala.scalajs.js.annotation.JSExport
 @JSExport
 object BarGraph {
 
-  def apply(selector: String) = {
+  def draw(selector: String) = {
 
     val graphHeight = 450
 
@@ -36,11 +36,14 @@ object BarGraph {
     val rectHeightFun = (d: Int) => d * barHeightMultiplier
     val rectColorFun = (d: Int, i: Int) => c.brighter(i * 0.5).toString
 
+
+    val placeholder = "rect"
+
     val svg = d3.select(selector).append("svg").attr("width", "100%").attr("height", "450px")
-    val sel = svg.selectAll("rect").data(js.Array(8, 22, 31, 36, 48, 17, 25))
+    val sel = svg.selectAll(placeholder).data(js.Array(8, 22, 31, 36, 48, 17, 25))
 
     sel.enter()
-      .append("rect")
+      .append(placeholder)
       .attr("x", rectXFun)
       .attr("y", rectYFun)
       .attr("width", barWidth)
@@ -50,6 +53,6 @@ object BarGraph {
 
   @JSExport
   def main(selector: String): Unit = {
-    apply(selector)
+    draw(selector)
   }
 }

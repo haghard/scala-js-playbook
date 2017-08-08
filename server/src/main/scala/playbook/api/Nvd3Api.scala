@@ -18,10 +18,11 @@ class Nvd3Api(implicit sys: ActorSystem) extends Directives {
     }
   }
 
-
-  /*~ path("histogram") {
+  /*
+    ~ path("histogram") {
         complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`, ByteString(HistogramScript("histogram").render))))
-      }*/
+      }
+  */
   private val scalaJsRoute =
     path("english") {
       complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`,
@@ -44,11 +45,6 @@ class Nvd3Api(implicit sys: ActorSystem) extends Directives {
     } ~ path("animals-json") {
       getFromResource("web/animals-json.json")
     }
-
-  /*
-    ~ path("cnt") {
-      complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`, ByteString(CounterScript().render))))
-    }*/
 
   private val bookRoutes =
     path("tweets2.json") {

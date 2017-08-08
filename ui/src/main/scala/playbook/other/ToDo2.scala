@@ -1,8 +1,11 @@
+/*
+
 package playbook.other
 
 import japgolly.scalajs.react.Addons.ReactCssTransitionGroup
 import japgolly.scalajs.react._
-import japgolly.scalajs.react.vdom.prefix_<^._
+//import japgolly.scalajs.react.vdom.prefix_<^._
+import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom
 import org.scalajs.dom.window
 
@@ -42,8 +45,9 @@ object ToDo2 {
     }
   }
 
-  val TodoList = ReactComponentB[Unit]("TodoList")
+  val TodoList = ScalaComponent.builder[Unit]("TodoList")
     .initialState(Vector("hello", "world"))
     .renderBackend[TodoListBackend]
     .build
 }
+*/
