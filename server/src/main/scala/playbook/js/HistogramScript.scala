@@ -3,8 +3,9 @@ package playbook.js
 import scalatags.Text.all._
 
 object HistogramScript {
+  val where = "content"
 
-  def apply(where: String) = {
+  def apply() = {
     html(
       head(
         link(rel := "stylesheet", href := "/assets/lib/bootstrap/css/bootstrap.css"),

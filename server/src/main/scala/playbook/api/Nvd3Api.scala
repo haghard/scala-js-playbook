@@ -24,6 +24,10 @@ class Nvd3Api(implicit sys: ActorSystem) extends Directives {
       }
   */
   private val scalaJsRoute =
+    path("histogram") {
+      complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`,
+        ByteString(HistogramScript().render))))
+    } ~
     path("english") {
       complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`,
         ByteString(EnglishModuleScript().render))))

@@ -1,5 +1,3 @@
-/*
-
 package playbook.d3
 
 import org.singlespaced.d3js.Ops._
@@ -32,7 +30,7 @@ object Histogram {
     // Generate a histogram using twenty uniformly-spaced bins.
     val data: js.Array[Bin[Double]] = d3.layout.histogram().bins(x.ticks(20))(values)
 
-    val mm: js.Function2[Bin[Double], Double, Double] = (x: Bin[Double], y: Double) => x.y
+    val mm: js.Function2[Bin[Double], Int, Double] = (x: Bin[Double], y: Int) => x.y
 
     val y = d3.scale.linear()
       .domain(js.Array(0, d3.max(data, mm)))
@@ -75,4 +73,4 @@ object Histogram {
     apply(selector)
   }
 }
-*/
+
