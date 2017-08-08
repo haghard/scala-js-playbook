@@ -7,7 +7,6 @@ import play.twirl.sbt.SbtTwirl
 import sbt._
 import webscalajs.ScalaJSWeb
 import sbt.Keys._
-import sbt.Project.projectToRef
 
 val scalaV = "2.12.3"
 val akkaVersion = "2.5.3"
@@ -109,7 +108,6 @@ def haltOnCmdResultError(result: Int) {
 }
 
 lazy val ui = (project in file("ui")).settings(
-
   resolvers += "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
   scalaVersion := scalaV,
   scalaJSUseMainModuleInitializer := true,
@@ -118,11 +116,17 @@ lazy val ui = (project in file("ui")).settings(
   //persistLauncher in Test := false,
 
   libraryDependencies ++= Seq(
+    //"com.github.fomkin" %%% "levsha-dom" % "0.5.0"
+    "com.thoughtworks.binding"          %%% "binding" % "10.0.2",
+    "com.thoughtworks.binding"          %%% "dom"     % "10.0.2",
+
     "org.singlespaced" %%% "scalajs-d3" % "0.3.4", //the version for scala 2.12 is 0.3.4
     "com.github.japgolly.scalajs-react" %%% "core"    % "1.1.0",
     "com.github.japgolly.scalajs-react" %%% "extra"   % "1.1.0"
     //"com.github.yoeluk"               %%% "raphael-scala-js" % "0.2-SNAPSHOT"
   ),
+
+  addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full),
 
   jsDependencies ++= Seq(
     "org.webjars" % "jquery" % "2.1.3" / "2.1.3/jquery.js",
@@ -156,3 +160,5 @@ lazy val sharedJs = shared.js
 
 // loads the server project at sbt startup
 onLoad in Global := (Command.process("project server", _: State)) compose (onLoad in Global).value
+
+cancelable in Global := false

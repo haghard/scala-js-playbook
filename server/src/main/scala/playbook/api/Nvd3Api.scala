@@ -108,10 +108,21 @@ class Nvd3Api(implicit sys: ActorSystem) extends Directives {
       getFromResource("web/MRD.csv") //MRD.csv
     }
 
+
+  val englishConditions = path("conditions") {
+    complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`,
+      ByteString(EnglishConditionsScript().render))))
+  }
+
+  val calculator = path("calculator") {
+    complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`,
+      ByteString(CalculatorScript()))))
+  }
+
   val route = extractMaterializer { implicit mat =>
     extractExecutionContext { implicit ec =>
       extractLog { log =>
-        assetsRoute ~ playRoute ~ scalaJsRoute ~ bookRoutes ~ accidentsRoute ~ bChartRoute ~ linkedChart ~ treeR
+        assetsRoute ~ playRoute ~ scalaJsRoute ~ bookRoutes ~ accidentsRoute ~ bChartRoute ~ linkedChart ~ treeR ~ englishConditions ~ calculator
       }
     }
   }
