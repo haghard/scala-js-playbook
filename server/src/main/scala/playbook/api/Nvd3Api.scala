@@ -119,10 +119,15 @@ class Nvd3Api(implicit sys: ActorSystem) extends Directives {
       ByteString(CalculatorScript()))))
   }
 
+  val login = path("login") {
+    complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`,
+      ByteString(LoginFormScript()))))
+  }
+
   val route = extractMaterializer { implicit mat =>
     extractExecutionContext { implicit ec =>
       extractLog { log =>
-        assetsRoute ~ playRoute ~ scalaJsRoute ~ bookRoutes ~ accidentsRoute ~ bChartRoute ~ linkedChart ~ treeR ~ englishConditions ~ calculator
+        assetsRoute ~ playRoute ~ scalaJsRoute ~ bookRoutes ~ accidentsRoute ~ bChartRoute ~ linkedChart ~ treeR ~ englishConditions ~ calculator ~ login
       }
     }
   }

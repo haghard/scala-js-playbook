@@ -3,6 +3,8 @@ package playbook.js
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
 
+//http://materializecss.com/forms.html
+
 object CalculatorScript {
 
   val where = "mainContainer"
@@ -66,10 +68,11 @@ object CalculatorScript {
     val calcScript = script(s"playbook.other.Calculator().main('${where}')")
     htmlBody(calcScript)
 
-    /*
-    html(
+    /*html(
       head(
-        link(rel := "stylesheet", href := "/assets/lib/bootstrap/css/bootstrap.css")
+        link(rel := "stylesheet", href := "/assets/lib/bootstrap/css/bootstrap.css"),
+        link(rel := "stylesheet", href := "https://fonts.googleapis.com/icon?family=Material+Icons"),
+        link(rel := "stylesheet", href := "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css")
       ),
       body(
         script(`type` := "text/javascript", src := "/assets/lib/jquery/jquery.js"),
@@ -79,8 +82,12 @@ object CalculatorScript {
         script(`type` := "text/javascript", src := "/assets/ui-opt.js"),
         script(`type` := "text/javascript", src := "/assets/ui-launcher.js"),
 
+        header(
+          tag("nav" (role="navigation")
+        )
 
-        script(s"playbook.other.Calculator().main('${where}')")
+        //script(s"playbook.other.Calculator().main('${where}')")
+
       )
     )*/
   }

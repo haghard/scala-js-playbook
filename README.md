@@ -54,6 +54,7 @@ Paths
     http://localhost:8008/cluster
     http://localhost:8008/bar-graph
     http://localhost:8008/bchart
+    http://localhost:8008/login
     http://localhost:8008/histogram
     http://localhost:8008/calculator
     http://localhost:8008/animals    
