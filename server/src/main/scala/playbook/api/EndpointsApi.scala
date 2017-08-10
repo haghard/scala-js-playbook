@@ -8,7 +8,7 @@ import akka.util.ByteString
 import playbook._
 import playbook.js._
 
-class Nvd3Api(implicit sys: ActorSystem) extends Directives {
+class EndpointsApi(implicit sys: ActorSystem) extends Directives {
 
   implicit val dispatcher = sys.dispatchers.lookup("akka.http.dispatcher")
 
