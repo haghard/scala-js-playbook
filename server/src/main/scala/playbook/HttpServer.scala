@@ -24,7 +24,7 @@ class HttpServer(port: Int) extends Actor with ActorLogging {
   )(system)
 
   val address = "0.0.0.0"
-  val routes = new api.Nvd3Api().route
+  val routes = new api.EndpointsApi().route
 
   Http()
     .bindAndHandle(routes, address, port)

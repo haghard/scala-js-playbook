@@ -9,7 +9,7 @@ import webscalajs.ScalaJSWeb
 import sbt.Keys._
 
 val scalaV = "2.12.3"
-val akkaVersion = "2.5.3"
+val akkaVersion = "2.5.4"
 val version = "0.1"
 
 name := "scala-js-playbook"
