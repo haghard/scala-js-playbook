@@ -48,7 +48,15 @@ class EndpointsApi(implicit sys: ActorSystem) extends Directives {
         ByteString(AnimalsScript().render))))
     } ~ path("animals-json") {
       getFromResource("web/animals-json.json")
+    } ~ path("gantt") {
+      complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`,
+         ByteString(GanttScript().render))))
     }
+  /*~ path("ts") {
+      //asserts/lib/bootstrap/html/tsindex.html
+      complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`,
+        ByteString(TsScript()))))
+    }*/
 
   private val bookRoutes =
     path("tweets2.json") {
@@ -71,6 +79,8 @@ class EndpointsApi(implicit sys: ActorSystem) extends Directives {
       getFromResource("web/flare.csv")
     } ~ path("dendrogram") {
       getFromResource("web/dendrogram.html")
+    } ~ path("ts") {
+      getFromResource("web/ts/tsindex.html")
     }
 
   val assetsRoute =

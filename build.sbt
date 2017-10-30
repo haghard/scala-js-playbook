@@ -8,7 +8,7 @@ import sbt._
 import webscalajs.ScalaJSWeb
 import sbt.Keys._
 
-val scalaV = "2.12.3"
+val scalaV = "2.12.4"
 val akkaVersion = "2.5.4"
 val version = "0.1"
 
@@ -19,6 +19,11 @@ resolvers += Resolver.bintrayRepo("stanch", "maven")
 resolvers += "Local Ivy2 Repository" at "file://Users/haghard/.ivy2/local/"
 
 updateOptions in Global := updateOptions.in(Global).value.withCachedResolution(true)
+
+lazy val scalajsGoogleChartsVersion = "0.6.0" //"0.5.5.Final"
+lazy val chartsScalaVersion = "2.12"
+lazy val chartsSbtVersion = "0.13"
+lazy val googleChartsUrl = "https://dl.bintray.com/aleastchs/aleastChs-releases/org.aleastChs/scalajs-google-charts/scala_"+ chartsScalaVersion +"/sbt_"+ chartsSbtVersion +"/"+ scalajsGoogleChartsVersion +"/jars/scalajs-google-charts.jar"
 
 lazy val server = (project in file("server")).settings(
   resolvers ++= Seq("Typesafe repository" at "https://repo.typesafe.com/typesafe/releases/"),
@@ -37,17 +42,17 @@ lazy val server = (project in file("server")).settings(
   javaOptions in run ++= Seq("-Xms128m", "-Xmx1024m"),
 
   libraryDependencies ++= Seq(
-    "com.typesafe.akka" %% "akka-actor" % akkaVersion,
-    "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
-    "com.typesafe.akka" %% "akka-stream" % akkaVersion,
+    //"com.typesafe.akka" %% "akka-actor" % akkaVersion,
+    //"com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
+    //"com.typesafe.akka" %% "akka-stream" % akkaVersion,
 
-    "com.typesafe.akka" %% "akka-http"  % "10.0.9",
+    "com.typesafe.akka" %% "akka-http"  % "10.0.10",
 
-    "ch.qos.logback"  %   "logback-classic" % "1.1.2",
+    //"ch.qos.logback"  %   "logback-classic" % "1.1.2",
 
     "com.vmunier"     %%  "scalajs-scripts" % "1.1.0", //Twirl templates to link Scala.js output scripts into a HTML page.
 
-    "com.lihaoyi"     %%  "scalatags"       % "0.6.5",
+    "com.lihaoyi"     %%  "scalatags"       % "0.6.7",
     "org.webjars"     %   "bootstrap"       % "3.3.6",
     //"org.stanch"      %%  "reftree"         % "1.0.0",
     "org.scalatest"   %%  "scalatest"       % "3.0.1"   % "test"
@@ -97,6 +102,11 @@ def cpCss() = (baseDirectory) map { dir =>
 
     Process(s"cp ${dir}/src/main/resources/web/linked-charts/area1.js ${dir}/target/web/web-modules/main/webjars/lib/bootstrap/js").!
     Process(s"cp ${dir}/src/main/resources/web/linked-charts/area2.js ${dir}/target/web/web-modules/main/webjars/lib/bootstrap/js").!
+
+    Process(s"cp ${dir}/src/main/resources/ts/tsstyle.css ${dir}/target/web/web-modules/main/webjars/lib/bootstrap/css").!
+    Process(s"cp ${dir}/src/main/resources/ts/timeseries.js ${dir}/target/web/web-modules/main/webjars/lib/bootstrap/js").!
+
+    Process(s"cp ${dir}/src/main/resources/ts/gantt.js ${dir}/target/web/web-modules/main/webjars/lib/bootstrap/js").!
   }
 
   println("Coping resources ...")
@@ -116,6 +126,7 @@ lazy val ui = (project in file("ui")).settings(
   //persistLauncher in Test := false,
 
   libraryDependencies ++= Seq(
+    "org.aleastChs" % "scalajs-google-charts" % scalajsGoogleChartsVersion from googleChartsUrl,
     //"com.github.fomkin" %%% "levsha-dom" % "0.5.0"
     "com.thoughtworks.binding"          %%% "binding" % "10.0.2",
     "com.thoughtworks.binding"          %%% "dom"     % "10.0.2",
@@ -129,7 +140,7 @@ lazy val ui = (project in file("ui")).settings(
   addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full),
 
   jsDependencies ++= Seq(
-    "org.webjars" % "jquery" % "2.1.3" / "2.1.3/jquery.js",
+    "org.webjars" % "jquery" % "2.1.4" / "2.1.4/jquery.js",
     "org.webjars.bower" % "react" % "15.6.1"
         /        "react-with-addons.js"
         minified "react-with-addons.min.js"

@@ -7,10 +7,10 @@ object HttpServer {
   val HttpDispatcher = "akka.http.dispatcher"
   object Stop
 
-  def props(port: Int) = Props(new HttpServer(port)).withDispatcher(HttpDispatcher)
+  def props(interface: String, port: Int) = Props(new HttpServer(interface, port)).withDispatcher(HttpDispatcher)
 }
 
-class HttpServer(port: Int) extends Actor with ActorLogging {
+class HttpServer(interface: String, port: Int) extends Actor with ActorLogging {
   import HttpServer._
   import akka.http.scaladsl.Http
   import akka.pattern.pipe
@@ -23,11 +23,10 @@ class HttpServer(port: Int) extends Actor with ActorLogging {
     ActorMaterializerSettings.create(system).withDispatcher(HttpDispatcher)
   )(system)
 
-  val address = "0.0.0.0"
   val routes = new api.EndpointsApi().route
 
   Http()
-    .bindAndHandle(routes, address, port)
+    .bindAndHandle(routes, interface, port)
     .pipeTo(self)
 
   override def receive = {
@@ -41,13 +40,13 @@ class HttpServer(port: Int) extends Actor with ActorLogging {
   }
 
   def handleBindFailure(cause: Throwable) = {
-    log.error(cause, s"Can't bind to $address:$port!")
+    log.error(cause, s"Can't bind to $interface:$port!")
     (context stop self)
   }
 
   def bound(b: akka.http.scaladsl.Http.ServerBinding): Receive = {
     case HttpServer.Stop =>
-      log.info("Unbound {}:{}", address, port)
+      log.info("Unbound {}:{}", interface, port)
       b.unbind().onComplete { _ =>  mat.shutdown }
   }
 }
