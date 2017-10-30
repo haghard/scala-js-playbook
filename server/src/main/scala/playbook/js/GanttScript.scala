@@ -7,7 +7,7 @@ object GanttScript {
 
   def apply() = {
     //<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    val where = "chart"
+    val where = "Timeline"
     html(
           head(
             script(`type` := "text/javascript", src := "https://www.gstatic.com/charts/loader.js"),

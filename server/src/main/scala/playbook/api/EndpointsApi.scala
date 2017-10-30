@@ -51,12 +51,10 @@ class EndpointsApi(implicit sys: ActorSystem) extends Directives {
     } ~ path("gantt") {
       complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`,
          ByteString(GanttScript().render))))
-    }
-  /*~ path("ts") {
-      //asserts/lib/bootstrap/html/tsindex.html
+    } ~ path("ts") {
       complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`,
         ByteString(TsScript()))))
-    }*/
+    }
 
   private val bookRoutes =
     path("tweets2.json") {

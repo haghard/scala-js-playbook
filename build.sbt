@@ -20,7 +20,7 @@ resolvers += "Local Ivy2 Repository" at "file://Users/haghard/.ivy2/local/"
 
 updateOptions in Global := updateOptions.in(Global).value.withCachedResolution(true)
 
-lazy val scalajsGoogleChartsVersion = "0.6.0" //"0.5.5.Final"
+lazy val scalajsGoogleChartsVersion = "0.6.0.Alpha" //"0.5.5.Final"
 lazy val chartsScalaVersion = "2.12"
 lazy val chartsSbtVersion = "0.13"
 lazy val googleChartsUrl = "https://dl.bintray.com/aleastchs/aleastChs-releases/org.aleastChs/scalajs-google-charts/scala_"+ chartsScalaVersion +"/sbt_"+ chartsSbtVersion +"/"+ scalajsGoogleChartsVersion +"/jars/scalajs-google-charts.jar"
