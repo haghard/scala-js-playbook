@@ -53,7 +53,7 @@ class EndpointsApi(implicit sys: ActorSystem) extends Directives {
          ByteString(GanttScript().render))))
     } ~ path("ts") {
       complete(HttpResponse(entity = Strict(ContentTypes.`text/html(UTF-8)`,
-        ByteString(TsScript()))))
+        ByteString(TsScript().render))))
     }
 
   private val bookRoutes =
@@ -84,6 +84,7 @@ class EndpointsApi(implicit sys: ActorSystem) extends Directives {
   val assetsRoute =
     pathPrefix("assets" / Remaining) { file =>
       encodeResponse {
+        println(s"""get file: public/$file""")
         getFromResource("public/" + file)
       }
     }

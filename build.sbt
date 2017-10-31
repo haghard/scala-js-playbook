@@ -20,7 +20,7 @@ resolvers += "Local Ivy2 Repository" at "file://Users/haghard/.ivy2/local/"
 
 updateOptions in Global := updateOptions.in(Global).value.withCachedResolution(true)
 
-lazy val scalajsGoogleChartsVersion = "0.6.0.Alpha" //"0.5.5.Final"
+lazy val scalajsGoogleChartsVersion = "0.6.0.Alpha" //"0.4.6.Final" //"0.5.5.Final"
 lazy val chartsScalaVersion = "2.12"
 lazy val chartsSbtVersion = "0.13"
 lazy val googleChartsUrl = "https://dl.bintray.com/aleastchs/aleastChs-releases/org.aleastChs/scalajs-google-charts/scala_"+ chartsScalaVersion +"/sbt_"+ chartsSbtVersion +"/"+ scalajsGoogleChartsVersion +"/jars/scalajs-google-charts.jar"
@@ -107,6 +107,7 @@ def cpCss() = (baseDirectory) map { dir =>
     Process(s"cp ${dir}/src/main/resources/ts/timeseries.js ${dir}/target/web/web-modules/main/webjars/lib/bootstrap/js").!
 
     Process(s"cp ${dir}/src/main/resources/ts/gantt.js ${dir}/target/web/web-modules/main/webjars/lib/bootstrap/js").!
+    Process(s"cp ${dir}/src/main/resources/ts/loader.js ${dir}/target/web/web-modules/main/webjars/lib/bootstrap/js").!
   }
 
   println("Coping resources ...")
@@ -126,7 +127,7 @@ lazy val ui = (project in file("ui")).settings(
   //persistLauncher in Test := false,
 
   libraryDependencies ++= Seq(
-    "org.aleastChs" % "scalajs-google-charts" % scalajsGoogleChartsVersion from googleChartsUrl,
+    //"org.aleastChs" % "scalajs-google-charts" % scalajsGoogleChartsVersion from googleChartsUrl,
     //"com.github.fomkin" %%% "levsha-dom" % "0.5.0"
     "com.thoughtworks.binding"          %%% "binding" % "10.0.2",
     "com.thoughtworks.binding"          %%% "dom"     % "10.0.2",

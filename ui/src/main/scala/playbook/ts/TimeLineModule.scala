@@ -1,18 +1,26 @@
+/*
 package playbook.ts
 
-import aleastchs.googleCharts.GoogleVisualization
+import aleastchs.googleCharts.{GoogleChartsLoaded, GoogleVisualization}
 import aleastchs.googleCharts.GoogleVisualization.{DataTable, Timeline}
 import aleastchs.googleCharts.helpers.chartsHelp.{TimelineHelper, TimelineOption}
+
+import scala.scalajs.js.annotation.JSExportTopLevel
+
+//import aleastchs.googleCharts.google.visualization.DataTable
+//import aleastchs.googleCharts.helpers.chartsHelp.{GoogleChartsLoaded, TimelineHelper}
 
 import scala.scalajs.js.annotation.JSExport
 import scala.scalajs.js
 
+//@JSExportTopLevel("playbook.ts.TimeLineModule")
+
 @JSExport
-object TsModule {
+object TimeLineModule {
 
   def toMilliseconds(n: Int) = (n  * 60 * 1000).toString
 
-  def draw(where: String, domEl: org.scalajs.dom.raw.Element): Unit = {
+  def draw(where: String, domEl: js.Dynamic /*org.scalajs.dom.raw.Element*/): Unit = {
 
     //[{'value': 1380854103662},{'value': 1363641921283}];
     /*val data = js.Array(
@@ -46,11 +54,13 @@ object TsModule {
       ]);
      */
 
-
-    //val optional_version : _root_.scala.Predef.String
     org.scalajs.dom.console.log("1")
-    val dt = new DataTable()
-    org.scalajs.dom.console.log("dt")
+    //val dt = new DataTable()
+    /*
+    import aleastchs.googleCharts.google.visualization.Timeline
+    val timeline = new Timeline(domEl.asInstanceOf[js.Dynamic])
+    */
+
 
     /*dt.addColumn(Array("string", "Task ID"))
     dt.addColumn(Array("string", "Task Name"))
@@ -72,7 +82,14 @@ object TsModule {
     val timeline = new Timeline(domEl.asInstanceOf[js.Dynamic])
     TimelineHelper(dt, timeline, TimelineOption(200,300, "x"))
     */
-    
+
+    val a = TimelineOption(400,400,"qwe")
+    TimelineHelper(domEl, a)
+    //val tl = new Timeline(domEl.asInstanceOf[js.Dynamic])
+    //val table = new DataTable()
+    //TimelineHelper(new DataTable(), new Timeline(domEl.asInstanceOf[js.Dynamic]), TimelineOption(200,300,"qwe")).draw()
+    org.scalajs.dom.console.log("dt")
+
     //timeline.draw(dt)
 
     //js.Dynamic.global.timeseries(where, data, false)
@@ -80,9 +97,13 @@ object TsModule {
 
   @JSExport
   def main(): Unit = {
-    val element = org.scalajs.dom.document.getElementById("Timeline")
+
+
+    val document = js.Dynamic.global.document
+    val timeline = document.getElementById("timeline")
+    //val timeline = org.scalajs.dom.document.getElementById("timeline")
     //val el = element
     org.scalajs.dom.console.log("element")
-    draw("timeseries", element)
+    draw("timeseries", timeline)
   }
-}
+}*/
