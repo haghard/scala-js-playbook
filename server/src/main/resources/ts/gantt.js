@@ -11,7 +11,7 @@ function setRows(d) {
 }
 
 function init() {
-  google.charts.load('current', {'packages':['gantt'], callback: onload });
+  google.charts.load('current', {'packages':['gantt', 'corechart'], callback: onload });
   google.charts.setOnLoadCallback(draw);
 }
 

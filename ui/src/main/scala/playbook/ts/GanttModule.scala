@@ -8,7 +8,7 @@ object GanttModule {
 
   def toMilliseconds(minutes: Int) = minutes * 60 * 1000
 
-  def draw(/*domEl: js.Dynamic*/): Unit = {
+  def draw(): Unit = {
     org.scalajs.dom.console.log("before")
 
     val columns = js.Array(
@@ -34,13 +34,14 @@ object GanttModule {
 
     js.Dynamic.global.setColumns(columns)
     js.Dynamic.global.setRows(rows)
-    js.Dynamic.global.init
+    js.Dynamic.global.init()
+
     org.scalajs.dom.console.log("after")
   }
 
   @JSExport
   def main(): Unit = {
-    draw
+    draw()
   }
 }
 /*
